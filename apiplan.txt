@@ -1,0 +1,86 @@
+api.cpp plan:
+
+Send HTTP request to server with body entered by client
+
+Next, the server receives the request sent by the client. The server acts on the request.
+
+Deserialize the JSON data, converting it into a data structure
+Modify an internal data structure, possibly a list
+Create a response data structure
+Serialize the response data structure, converting it to JSON
+Send the response to the client
+The response to the client might look like this.
+
+The top-level application is an office hours queue REST API that reads requests from stdin (cin) and writes responses to stdout (cout). 
+Requests and responses are formatted using a simplified subset of real HTTP.
+
+GET /api/	Read routes
+GET /api/queue/	Read all queue positions
+GET /api/queue/head/	Read first queue position
+POST /api/queue/tail/	Create last queue position
+DELETE /api/queue/head/	Delete first queue position
+
+
+
+
+
+
+
+
+
+Void readRoutes();
+accepts GET request and 
+returns a list of URLs 
+ "queue_head_url": "http://localhost/queue/head/",
+    "queue_list_url": "http://localhost/queue/",
+    "queue_tail_url": "http://localhost/queue/tail/"
+
+
+
+void OHQueue::readAllQueuePositions()
+The /api/queue/ route accepts a GET request 
+and returns a list of everyone on the queue, including location, position and uniqname in that order. 
+The list is ordered by position,
+which always starts with 1 for the person currently at the head of the queue.
+loop through linked list from the queue and print each students location, position, and uniqname 
+by reading in location and uniquename from datum, and having an int position counter on the side
+
+
+
+
+
+void OHQueue::readHead()
+The /api/queue/head route accepts a GET request 
+and returns the person at the head of the queue. 
+The person at the head of the queue always has position 1. 
+print person in position 1 using queue.front
+
+
+
+void OHQueue::createTail(student struct)
+The /api/queue/tail/ route accepts a POST request 
+and creates one new person on the queue. As a simplification, we do not check if a person is already on the queue, 
+thus the same uniqname may appear multiple times.
+takes in student struct, creates a node and calls push_back
+print out json.response.dump()
+
+
+
+void OHQueue::deleteHead()
+DELETE /api/queue/head/ route 
+accepts a DELETE request and removes the person at the head of the queue.
+pop_front the queue
+print error code if empty
+
+
+
+int main ()
+OHqueue queue;
+Some of these functions might need the whole json object depending on the job of the function. 
+use cin to read in the requests with json objects. 
+Then it needs to parse the request to understand what the request is (EX: is it GET /api/ or POST /api/queue/tail/)
+while (cin >> request)
+parsing is in the while loop
+calls all the previous functions
+return 0;
+
